@@ -80,12 +80,24 @@ To quickly answer these questions, run:
 bun run answer -- "Do you have experience with XYZ? Explain."
 ```
 
+## Behavioral Interview Cheat-Sheet
+Before an interview, generate a cheat-sheet of pre-written answers to common behavioral questions. The output is a quick-reference document you can read through the night before to refresh your memory on specific stories and examples.
+
+Edit `support/behavior.md` to add or remove questions, then run:
+```bash
+bun run behavior
+```
+
+The cheat-sheet will be saved to `output/behavior-cheat-sheet_<timestamp>.md`.
+
 ## Project Structure
 
 ```
 career-context-builder/
 ├── src/                     # TypeScript source code
-│   ├── generate.ts          # Main CLI entry point
+│   ├── generate.ts          # Resume generation CLI
+│   ├── answer-question.ts   # Job application question answering CLI
+│   ├── behavior.ts          # Behavioral cheat-sheet generation CLI
 │   ├── types.ts             # Type definitions
 │   ├── providers.ts         # AI provider configurations
 │   ├── utils.ts             # Utility functions
@@ -101,6 +113,8 @@ career-context-builder/
 │   └── ...
 ├── education/               # Education history
 │   └── education.md
+├── support/                 # Interview prep resources
+│   └── behavior.md          # Behavioral questions list for cheat-sheet generation
 ├── job-descriptions/        # Optional job descriptions for tailoring
 │   └── *.md
 ├── reference-resumes/       # Example resumes for reference

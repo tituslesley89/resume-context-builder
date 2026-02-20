@@ -6,6 +6,7 @@
   "scripts": {
     "generate": "bun src/generate.ts",
     "answer": "bun src/answer-question.ts",
+    "behavior": "bun src/behavior.ts",
     "dev": "bun --watch src/generate.ts"
   },
   "keywords": [
