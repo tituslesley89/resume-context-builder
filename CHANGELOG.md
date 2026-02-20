@@ -16,6 +16,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 - `career/tech-company-inc.md` — example journal file covering a multi-year tenure, showing the narrative style
 - `career/fintech-startup.md` — second example journal file showing an earlier-career role at a smaller company
+- `support/behavior.md` — list of common behavioral interview questions, organized by theme
+- Behavioral interview cheat-sheet CLI (`bun run behavior`) — generates a STAR-format answer cheat-sheet from your career journal and the questions in `support/behavior.md`
 - Gemini CLI free tier throttling note in README prerequisites
 
 ### Fixed
