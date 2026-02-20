@@ -12,18 +12,28 @@ Your data stays in your repo. The community contributes resume templates and bes
 
 ## Why Use This?
 - **Works with any LLM you are paying for** - Re-use whatever LLM subscription you are already using.
-- **Easy to Maintain** - Yearly, write a single file summarizing your work experience, to keep up-to-date.
+- **Easy to Maintain** - When you change jobs or finish a project, jot down your thoughts in a journal file. No formal structure required.
 - **Generates resumes for any job-type** - With your existing work-experience rebuild your resume for a different job-type.
 - **ATS-Optimized** - Generate resumes that pass Applicant Tracking Systems while remaining human-readable
-- **Privacy** - Just fork this repo and maintain your own copy, don't give your information to anyone. 
+- **Privacy** - Just fork this repo and maintain your own copy, don't give your information to anyone.
 - **Crowd sources** - Industry professionals are encouraged to contribute to this repo: adding new resume-types and refining existing resume-types.
 
 ## How It Works
 
-1. **Write your career history & education** — Add markdown files to `career/` (one per year) and `education/education.md`
+1. **Write your career journal** — Add a markdown file to `career/` for each job (e.g., `stripe.md`, `google-maps-team.md`). Write it like a personal journal: free-flowing thoughts, bullet points, whatever comes naturally. No formal structure required.
 2. **Pick a resume type** — Choose from `resume-types/`, modify one, or create your own
 3. **Run the generate command** — `bun run generate -- --type <resume-type>`
 4. **Wait for your resume** — The script builds a prompt and sends it to your LLM, outputting a polished resume in the `/output` folder.
+
+## Career Journal Format
+
+Your career files are not formal documents — they're personal notes. Write them however feels natural. The AI figures out the rest.
+
+Each file covers one job or team. Within it, use sections to organize by feature or project. Write chronologically within each section if that helps you think through it. Mix bullets and prose freely.
+
+**There is no required structure.** The only goal is to get your thoughts out of your head. The more detail the better — metrics, context, what was hard, what you're proud of. The LLM will extract what matters.
+
+See `career/tech-company-inc.md` for a full example.
 
 ## Quick Start
 
@@ -35,8 +45,9 @@ Before you begin, you'll need:
    - Check if installed: `bun --version`
    - [Install Bun](https://bun.sh/) - Run `curl -fsSL https://bun.sh/install | bash`
 
-2. **An AI Provider CLI** (currently supports Claude Code CLI)
-   - [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code/overview) - Requires an Anthropic API key
+2. **An AI Provider CLI** (currently supports Gemini CLI and Claude Code CLI)
+   - [Gemini CLI](https://github.com/google-gemini/gemini-cli) — Free with a Google account, and the default provider for this repo. Note: the free tier gets throttled fairly easily, so if you're generating multiple resumes in a session you may hit rate limits. Just wait a minute and retry.
+   - [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code/overview) — Requires an Anthropic API key (paid)
    - Alternative: Use `--paste` mode to generate prompts for any AI tool you already use
 
 ### Installation
@@ -50,7 +61,7 @@ cd resume-context-builder
 bun install
 
 # 3. Fill in your information
-# - Add your career history to career/ (one file per year)
+# - Add your career journal files to career/ (one file per job, e.g. stripe.md)
 # - Add your education to education/education.md
 # - Review resume-types/ for available templates
 
@@ -79,9 +90,9 @@ career-context-builder/
 │   ├── providers.ts         # AI provider configurations
 │   ├── utils.ts             # Utility functions
 │   └── prompt.ts            # Prompt building logic
-├── career/                  # Year-based career history files
-│   ├── 2020.md
-│   ├── 2021.md
+├── career/                  # Career journal files, one per job
+│   ├── stripe.md
+│   ├── google-maps-team.md
 │   └── ...
 ├── resume-types/            # Resume templates and formatting rules
 │   ├── common-rules.md      # Rules that apply to all resume types
@@ -148,6 +159,7 @@ The tool is designed to be extensible with different AI providers:
 
 ```bash
 bun run generate -- --type software-engineer --provider claude
+bun run generate -- --type software-engineer --provider gemini
 ```
 
 ## FAQ
@@ -155,17 +167,17 @@ bun run generate -- --type software-engineer --provider claude
 **Q: Do I need programming knowledge to use this?**
 A: Basic command line familiarity and Bun installed. If you can run `bun install` and `bun run` commands, you're good to go.
 
-**Q: Can I use this with other AI models besides Claude?**
-A: Yes! The TypeScript codebase is designed to be extensible. Currently supports Claude Code CLI, but you can easily add new providers in `src/providers.ts`. You can also use `--paste` mode to generate prompts for any AI tool.
+**Q: Can I use this with other AI models besides Gemini?**
+A: Yes! The TypeScript codebase is designed to be extensible. Currently supports Gemini CLI and Claude Code CLI, but you can easily add new providers in `src/providers.ts`. You can also use `--paste` mode to generate prompts for any AI tool.
 
 **Q: How much does it cost?**
-A: The tool itself is free and open source. You'll need access to an AI provider (like Claude Code CLI).
+A: The tool itself is free and open source. You'll need access to an AI provider (like Gemini CLI or Claude Code CLI).
 
 **Q: Will this work for non-technical resumes?**
 A: Absolutely! While built by developers, it works for any profession. Just customize your resume types and career files accordingly.
 
 **Q: How do I handle gaps in employment?**
-A: Document everything chronologically in your career files. The resume type rules can specify how to handle gaps.
+A: Just note it briefly in the relevant journal file or as its own file. The resume type rules can specify how to handle gaps.
 
 **Q: Can I use this for multiple people (e.g., as a career coach)?**
 A: Yes! Just create different branches for each person.
@@ -189,7 +201,7 @@ This project is open source and available under the MIT License.
 
 ## Acknowledgments
 
-Built with TypeScript and designed to work with AI providers like [Claude Code CLI](https://docs.claude.com/claude-code) by Anthropic.
+Built with TypeScript and designed to work with AI providers like [Gemini CLI](https://github.com/google-gemini/gemini-cli) by Google and [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code/overview) by Anthropic.
 
 ---
 

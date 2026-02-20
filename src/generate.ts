@@ -25,7 +25,7 @@ function main() {
     .option('-r, --reference <file>', 'Path to reference resume file')
     .option('-o, --output <file>', 'Output file path (default: output/resume-TIMESTAMP.md)')
     .option('-p, --paste', 'Print prompt to terminal instead of calling AI provider', false)
-    .option('--provider <provider>', 'AI provider to use (default: claude)', 'claude')
+    .option('--provider <provider>', 'AI provider to use (default: gemini)', 'gemini')
     .addHelpText(
       'after',
       `
@@ -33,7 +33,7 @@ Examples:
   $ bun run generate -- --type software-engineer
   $ bun run generate -- -t software-engineer -j job-descriptions/senior-dev.md
   $ bun run generate -- -t tech-lead -j job-descriptions/lead.md -r reference-resumes/example.md
-  $ bun run generate -- -t software-engineer --provider claude
+  $ bun run generate -- -t software-engineer --provider gemini
     `
     );
 

@@ -1,54 +1,60 @@
+import { readFileSync, readdirSync, existsSync } from 'fs';
 import type { GenerateOptions } from './types.js';
 
+function readFile(filePath: string): string {
+  if (!existsSync(filePath)) return '';
+  return readFileSync(filePath, 'utf8');
+}
+
+function readCareerFiles(): string {
+  if (!existsSync('career')) return '';
+  const files = readdirSync('career')
+    .filter((f) => f.endsWith('.md'))
+    .sort();
+  return files
+    .map((f) => `#### career/${f}\n${readFile(`career/${f}`)}`)
+    .join('\n\n');
+}
+
 export function buildPrompt(options: GenerateOptions, resumeTypeFile: string): string {
-  let prompt = `Please generate a professional resume in markdown format based on the provided context files.
+  const careerContent = readCareerFiles();
+  const educationContent = readFile('education/education.md');
+  const commonRulesContent = readFile('resume-types/common-rules.md');
+  const resumeTypeContent = readFile(resumeTypeFile);
 
-## Instructions:
+  let prompt = `You are a professional resume writer. Generate a resume based solely on the career information provided below. Output ONLY the resume in clean markdown format — no explanations, no meta-commentary, no code blocks wrapping the output.
 
-1. Read and analyze ALL the following files:
-   - All career history files in the career/ folder
-   - The education file in education/education.md
-   - The common rules in resume-types/common-rules.md
-   - The specific resume type rules in resume-types/${options.type}.md
+## Output Requirements:
+- Output ONLY the resume content in raw markdown
+- Do not include any introductory text, explanations, or commentary
+- Do not wrap the output in code blocks
+- Follow all formatting rules specified in the Common Rules and Resume Type sections below
 
-2. If a job description is provided, tailor the resume to match:
-   - Use keywords from the job description
-   - Emphasize relevant experience and skills
-   - Highlight applicable technologies
-   - Match the tone and terminology
+## Common Rules:
+${commonRulesContent}
 
-3. If a reference resume is provided, use it as a formatting and style guide
+## Resume Type: ${options.type}
+${resumeTypeContent}
 
-4. Generate a complete, professional resume following these guidelines:
-   - Follow all rules from common-rules.md
-   - Apply specific formatting from the resume type file
-   - Include quantifiable achievements and metrics
-   - Use action verbs and impact-focused language
-   - Ensure ATS-friendly formatting
-   - Keep it concise (1-2 pages maximum)
-   - Make it relevant to the target role
+## Career Journal:
+The following are informal career journal notes, one file per job. Each file is written in a personal, free-flowing style — a mix of bullet points and paragraphs, organized by feature or project. They are not formal documents. Extract the relevant experience, achievements, and technologies from them to build the resume.
 
-5. Output ONLY the resume content in clean markdown format
-   - Do not include explanations or meta-commentary
-   - Do not wrap the output in code blocks
-   - Just output the raw markdown resume
+${careerContent}
 
-## Context Files:
-
-### Resume Type: ${options.type}
-
-Career files: career/*.md
-Education: education/education.md
-Common rules: resume-types/common-rules.md
-Resume type: ${resumeTypeFile}`;
+### Education: education/education.md
+${educationContent}`;
 
   if (options.job) {
-    prompt += `\nJob description: ${options.job}`;
+    const jobContent = readFile(options.job);
+    prompt += `\n\n## Job Description (tailor the resume to match this):\n${jobContent}`;
   }
 
   if (options.reference) {
-    prompt += `\nReference resume: ${options.reference}`;
+    const referenceContent = readFile(options.reference);
+    prompt += `\n\n## Reference Resume (use as a formatting/style guide):\n${referenceContent}`;
   }
+
+  prompt += `\n\nNow generate the resume. Output ONLY the markdown resume content, nothing else.`;
 
   return prompt;
 }

@@ -3,8 +3,21 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
 import { spawnSync } from 'child_process';
-import { writeFileSync, unlinkSync } from 'fs';
+import { readFileSync, readdirSync, existsSync, writeFileSync, unlinkSync } from 'fs';
 import { getProvider } from './providers.js';
+
+function readFile(filePath: string): string {
+  if (!existsSync(filePath)) return '';
+  return readFileSync(filePath, 'utf8');
+}
+
+function readCareerFiles(): string {
+  if (!existsSync('career')) return '';
+  const files = readdirSync('career')
+    .filter((f) => f.endsWith('.md'))
+    .sort();
+  return files.map((f) => `#### career/${f}\n${readFile(`career/${f}`)}`).join('\n\n');
+}
 
 function executeProviderToStdout(command: string, prompt: string): string | null {
   try {
@@ -40,38 +53,33 @@ function executeProviderToStdout(command: string, prompt: string): string | null
 }
 
 function buildQuestionPrompt(question: string): string {
-  return `You are helping answer a job application question based on the candidate's career history.
+  const careerContent = readCareerFiles();
+  const educationContent = readFile('education/education.md');
+
+  return `You are helping answer a job application question based on the candidate's career history. Output ONLY the answer text — no meta-commentary, no explanations.
 
 ## Question to Answer:
 ${question}
 
-## Instructions:
-1. Read and analyze ALL the following files:
-   - All career history files in the career/ folder
-   - The education file in education/education.md
+## Answer Guidelines:
+- Draw from relevant experiences in the career history below
+- Include specific examples, projects, and achievements
+- Use concrete details and metrics when available
+- Keep the answer focused and relevant to the question
+- Write in first person (I, my, etc.)
+- Keep it concise but complete (2-4 paragraphs typically)
+- Use professional but conversational tone
+- Highlight the most relevant experiences first
 
-2. Answer the question thoughtfully and specifically:
-   - Draw from relevant experiences in the career history
-   - Include specific examples, projects, and achievements
-   - Use concrete details and metrics when available
-   - Keep the answer focused and relevant to the question
-   - Write in first person (I, my, etc.)
+## Career Journal:
+The following are informal career journal notes, one file per job. Each file is written in a personal, free-flowing style — a mix of bullet points and paragraphs, organized by feature or project. They are not formal documents. Extract the relevant experience and examples from them to answer the question.
 
-3. Format the answer:
-   - Keep it concise but complete (2-4 paragraphs typically)
-   - Use professional but conversational tone
-   - Highlight the most relevant experiences first
-   - End with a strong closing statement if appropriate
+${careerContent}
 
-4. Output ONLY the answer text
-   - Do not include meta-commentary or explanations
-   - Just provide the answer as if you are the candidate responding
+## Education:
+${educationContent}
 
-## Context Files:
-Career files: career/*.md
-Education: education/education.md
-
-Now, please answer the question above based on this career context.`;
+Now answer the question above. Output ONLY the answer text, nothing else.`;
 }
 
 function main() {
@@ -82,7 +90,7 @@ function main() {
     .description('Answer job application questions using your career context')
     .version('1.0.0')
     .argument('<question>', 'The job application question to answer')
-    .option('--provider <provider>', 'AI provider to use (default: claude)', 'claude')
+    .option('--provider <provider>', 'AI provider to use (default: gemini)', 'gemini')
     .option('-p, --paste', 'Print prompt to terminal instead of calling AI provider', false)
     .addHelpText(
       'after',
@@ -90,7 +98,7 @@ function main() {
 Examples:
   $ bun run answer -- "Tell me about your experience with cloud development"
   $ bun run answer -- "Describe a time you led a technical project"
-  $ bun run answer -- --provider claude "What is your experience with React?"
+  $ bun run answer -- --provider gemini "What is your experience with React?"
     `
     );
 

@@ -42,6 +42,20 @@ function executeCommand(command: string, prompt: string, outputFile: string): bo
 }
 
 export const PROVIDERS: Record<string, ProviderConfig> = {
+  gemini: {
+    name: 'Gemini CLI',
+    command: 'gemini',
+    checkAvailable: () => {
+      try {
+        execSync('which gemini', { stdio: 'ignore' });
+        return true;
+      } catch {
+        return false;
+      }
+    },
+    execute: (prompt: string, outputFile: string) =>
+      executeCommand('gemini', prompt, outputFile),
+  },
   claude: {
     name: 'Claude Code CLI',
     command: 'claude',
@@ -56,14 +70,6 @@ export const PROVIDERS: Record<string, ProviderConfig> = {
     execute: (prompt: string, outputFile: string) =>
       executeCommand('claude', prompt, outputFile),
   },
-  // Add more providers here
-  // Example:
-  // openai: {
-  //   name: 'OpenAI CLI',
-  //   command: 'openai-cli',
-  //   checkAvailable: () => { ... },
-  //   execute: (prompt, outputFile) => executeCommand('openai-cli', prompt, outputFile),
-  // },
 };
 
 export function getProvider(name: string): ProviderConfig | undefined {
