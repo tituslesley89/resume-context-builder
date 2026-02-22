@@ -26,6 +26,7 @@ function main() {
     .option('-o, --output <file>', 'Output file path (default: output/resume-TIMESTAMP.md)')
     .option('-p, --paste', 'Print prompt to terminal instead of calling AI provider', false)
     .option('--provider <provider>', 'AI provider to use (default: gemini)', 'gemini')
+    .option('-v --versions <number>', 'Number of versions of resume to generate')
     .addHelpText(
       'after',
       `
@@ -34,6 +35,7 @@ Examples:
   $ bun run generate -- -t software-engineer -j job-descriptions/senior-dev.md
   $ bun run generate -- -t tech-lead -j job-descriptions/lead.md -r reference-resumes/example.md
   $ bun run generate -- -t software-engineer --provider gemini
+  $ bun run generate -- -t software-engineer --versions 3
     `
     );
 
@@ -78,7 +80,7 @@ Examples:
   // Set default output file
   if (!options.output) {
     const timestamp = generateTimestamp();
-    options.output = `output/resume_${options.type}_${timestamp}.md`;
+    options.output = `output/resume_${options.type}_${timestamp}`;
   }
 
   // Create output directory
@@ -87,13 +89,19 @@ Examples:
     mkdirSync(outputDir, { recursive: true });
   }
 
+  let num = 1;
+  if (options.versions && options.versions > 1) {
+    num = options.versions
+  }
+
   // Display configuration
   console.log(chalk.green('Generating resume...'));
   console.log(`Resume Type: ${options.type}`);
   if (options.job) console.log(`Job Description: ${options.job}`);
   if (options.reference) console.log(`Reference Resume: ${options.reference}`);
-  console.log(`Output File: ${options.output}`);
+  console.log(`Output File(s): ${options.output}_v(x).md`);
   console.log(`Provider: ${options.provider}`);
+  console.log(`Versions: ${num}`);
   console.log('');
 
   // Build prompt
@@ -110,15 +118,16 @@ Examples:
     console.log('');
     console.log(prompt);
     console.log('');
-    console.log(chalk.green(`Save the generated resume to: ${options.output}`));
+    console.log(chalk.green(`Save the generated resume to: ${options.output}.md`));
   } else {
     // Direct mode: Call provider
-    const success = provider.execute(prompt, options.output);
+    for (let i = 1; i <= num; i++) {
+      const success = provider.execute(prompt, `${options.output}_v${i}.md`);
 
-    if (!success) {
-      process.exit(1);
+      if (!success) {
+        process.exit(1);
+      }
     }
-
     console.log('');
     console.log(chalk.green('Resume generation completed!'));
   }
