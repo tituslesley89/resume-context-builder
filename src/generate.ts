@@ -122,7 +122,7 @@ Examples:
   } else {
     // Direct mode: Call provider
     for (let i = 1; i <= versions; i++) {
-      console.log(`Generate version ${i} of ${versions}`);
+      console.log(`Generating version ${i} of ${versions}`);
       console.log('');
       const success = provider.execute(prompt, `${options.output}_v${i}.md`);
 
