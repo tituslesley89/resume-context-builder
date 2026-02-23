@@ -131,7 +131,8 @@ career-context-builder/
 - `--reference` or `-r`: Path to reference resume (optional)
 - `--output` or `-o`: Output file path (default: output/resume-{timestamp}.md)
 - `--paste` or `-p`: Print prompt to terminal instead of calling AI provider (optional)
-- `--provider`: AI provider to use (default: claude) - extensible for future providers
+- `--provider`: AI provider to use (default: gemini) - extensible for future providers
+- `--versions` or `-v`: Number of different resume versions to generate (default: 1)
 
 ## Usage Examples
 
@@ -174,6 +175,14 @@ The tool is designed to be extensible with different AI providers:
 ```bash
 bun run generate -- --type software-engineer --provider claude
 bun run generate -- --type software-engineer --provider gemini
+```
+
+### Generate multiple versions to compare
+
+Generate a number of versions of your resume to compare and choose.
+
+```bash
+bun run generate -- --type software-engineer --versions 3
 ```
 
 ## FAQ

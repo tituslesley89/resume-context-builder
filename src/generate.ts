@@ -89,9 +89,9 @@ Examples:
     mkdirSync(outputDir, { recursive: true });
   }
 
-  let num = 1;
+  let versions = 1;
   if (options.versions && options.versions > 1) {
-    num = options.versions
+    versions = options.versions
   }
 
   // Display configuration
@@ -101,7 +101,7 @@ Examples:
   if (options.reference) console.log(`Reference Resume: ${options.reference}`);
   console.log(`Output File(s): ${options.output}_v(x).md`);
   console.log(`Provider: ${options.provider}`);
-  console.log(`Versions: ${num}`);
+  console.log(`# of Versions: ${versions}`);
   console.log('');
 
   // Build prompt
@@ -121,7 +121,9 @@ Examples:
     console.log(chalk.green(`Save the generated resume to: ${options.output}.md`));
   } else {
     // Direct mode: Call provider
-    for (let i = 1; i <= num; i++) {
+    for (let i = 1; i <= versions; i++) {
+      console.log(`Generate version ${i} of ${versions}`);
+      console.log('');
       const success = provider.execute(prompt, `${options.output}_v${i}.md`);
 
       if (!success) {
