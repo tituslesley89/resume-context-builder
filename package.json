@@ -7,6 +7,7 @@
     "generate": "bun src/generate.ts",
     "answer": "bun src/answer-question.ts",
     "behavior": "bun src/behavior.ts",
+    "promo": "bun src/promo.ts",
     "dev": "bun --watch src/generate.ts"
   },
   "keywords": [

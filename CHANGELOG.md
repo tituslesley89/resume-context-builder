@@ -6,6 +6,18 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.2.0] - 2026-03-03
+
+### Added
+- Promotion document CLI (`bun run promo`) — generates a structured promo packet from your career journal and a criteria file
+  - Requires `-c, --criteria <name>` to specify a criteria file from the new `promo/` directory
+  - Supports `--paste`, `--provider`, and `-o` flags consistent with other scripts
+  - Output saved to `output/promo_<criteria>_<timestamp>.md` by default
+- `promo/` directory for storing promotion criteria documents
+- `promo/staff-engineer.md` — example criteria for Senior → Staff Engineer promotion, covering Technical Impact, Engineering Excellence, Leadership & Influence, and Organizational Contribution
+
+---
+
 ## [1.1.0] - 2026-02-19
 
 ### Changed

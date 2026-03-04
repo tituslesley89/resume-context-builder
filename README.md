@@ -90,6 +90,15 @@ bun run behavior
 
 The cheat-sheet will be saved to `output/behavior-cheat-sheet_<timestamp>.md`.
 
+## Promotion Document
+Generate a structured promotion packet grounded in your career journal. Add a criteria file to `promo/` describing the dimensions and expectations for the target level (see `promo/staff-engineer.md` for an example), then run:
+
+```bash
+bun run promo -- --criteria staff-engineer
+```
+
+The document will be saved to `output/promo_<criteria>_<timestamp>.md`. You can add multiple criteria files for different levels or companies.
+
 ## Project Structure
 
 ```
@@ -98,6 +107,7 @@ career-context-builder/
 │   ├── generate.ts          # Resume generation CLI
 │   ├── answer-question.ts   # Job application question answering CLI
 │   ├── behavior.ts          # Behavioral cheat-sheet generation CLI
+│   ├── promo.ts             # Promotion document generation CLI
 │   ├── types.ts             # Type definitions
 │   ├── providers.ts         # AI provider configurations
 │   ├── utils.ts             # Utility functions
@@ -111,6 +121,8 @@ career-context-builder/
 │   ├── software-engineer.md
 │   ├── tech-lead.md
 │   └── ...
+├── promo/                   # Promotion criteria documents, one per level/company
+│   └── staff-engineer.md    # Example: Senior → Staff Engineer criteria
 ├── education/               # Education history
 │   └── education.md
 ├── support/                 # Interview prep resources
@@ -119,7 +131,7 @@ career-context-builder/
 │   └── *.md
 ├── reference-resumes/       # Example resumes for reference
 │   └── *.md
-├── output/                  # Generated resumes
+├── output/                  # Generated documents
 ├── package.json             # Dependencies and scripts
 └── tsconfig.json            # TypeScript configuration
 ```
