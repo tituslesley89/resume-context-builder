@@ -5,6 +5,7 @@ export interface GenerateOptions {
   output?: string;
   paste: boolean;
   provider: string;
+  versions?: number;
 }
 
 export interface ProviderConfig {
