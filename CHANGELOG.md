@@ -6,6 +6,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.3.0] - 2026-05-04
+
+### Added
+- Education journals — the `education/` directory now supports multiple `.md` files, not just `education.md`. Add as many files as you like (one per degree, one for certifications, one for bootcamps, etc.) and they will all be included in the prompt context automatically
+- `education/bs-computer-science.md` — example education journal covering an undergraduate CS degree in narrative style
+- `education/professional-certifications.md` — example education journal covering professional certifications and additional training
+
+### Changed
+- All scripts (`generate`, `behavior`, `answer-question`) now read the entire `education/` directory instead of only `education/education.md`
+- Education is now labelled **Education Journal** in prompts and includes per-file headers (`#### education/{filename}`) consistent with how career files are formatted, so the LLM can distinguish sources
+
+---
+
 ## [1.2.0] - 2026-03-03
 
 ### Added

@@ -19,6 +19,14 @@ function readCareerFiles(): string {
   return files.map((f) => `#### career/${f}\n${readFile(`career/${f}`)}`).join('\n\n');
 }
 
+function readEducationFiles(): string {
+  if (!existsSync('education')) return '';
+  const files = readdirSync('education')
+    .filter((f) => f.endsWith('.md'))
+    .sort();
+  return files.map((f) => `#### education/${f}\n${readFile(`education/${f}`)}`).join('\n\n');
+}
+
 function executeProviderToStdout(command: string, prompt: string): string | null {
   try {
     // Create a temporary prompt file
@@ -54,7 +62,7 @@ function executeProviderToStdout(command: string, prompt: string): string | null
 
 function buildQuestionPrompt(question: string): string {
   const careerContent = readCareerFiles();
-  const educationContent = readFile('education/education.md');
+  const educationContent = readEducationFiles();
 
   return `You are helping answer a job application question based on the candidate's career history. Output ONLY the answer text — no meta-commentary, no explanations.
 

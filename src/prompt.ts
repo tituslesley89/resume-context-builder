@@ -16,9 +16,19 @@ function readCareerFiles(): string {
     .join('\n\n');
 }
 
+function readEducationFiles(): string {
+  if (!existsSync('education')) return '';
+  const files = readdirSync('education')
+    .filter((f) => f.endsWith('.md'))
+    .sort();
+  return files
+    .map((f) => `#### education/${f}\n${readFile(`education/${f}`)}`)
+    .join('\n\n');
+}
+
 export function buildPrompt(options: GenerateOptions, resumeTypeFile: string): string {
   const careerContent = readCareerFiles();
-  const educationContent = readFile('education/education.md');
+  const educationContent = readEducationFiles();
   const commonRulesContent = readFile('resume-types/common-rules.md');
   const resumeTypeContent = readFile(resumeTypeFile);
 
@@ -41,7 +51,9 @@ The following are informal career journal notes, one file per job. Each file is 
 
 ${careerContent}
 
-### Education: education/education.md
+## Education Journal:
+The following are informal education journal notes. Each file covers a degree program, certification, or significant learning experience. Extract the relevant credentials, coursework, projects, and skills from them to build the resume.
+
 ${educationContent}`;
 
   if (options.job) {

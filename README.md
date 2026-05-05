@@ -21,9 +21,10 @@ Your data stays in your repo. The community contributes resume templates and bes
 ## How It Works
 
 1. **Write your career journal** — Add a markdown file to `career/` for each job (e.g., `stripe.md`, `google-maps-team.md`). Write it like a personal journal: free-flowing thoughts, bullet points, whatever comes naturally. No formal structure required.
-2. **Pick a resume type** — Choose from `resume-types/`, modify one, or create your own
-3. **Run the generate command** — `bun run generate -- --type <resume-type>`
-4. **Wait for your resume** — The script builds a prompt and sends it to your LLM, outputting a polished resume in the `/output` folder.
+2. **Write your education journal** — Add markdown files to `education/` for your degrees, certifications, bootcamps, or any other learning. One file per topic, or one big file — it's up to you.
+3. **Pick a resume type** — Choose from `resume-types/`, modify one, or create your own
+4. **Run the generate command** — `bun run generate -- --type <resume-type>`
+5. **Wait for your resume** — The script builds a prompt and sends it to your LLM, outputting a polished resume in the `/output` folder.
 
 ## Career Journal Format
 
@@ -34,6 +35,20 @@ Each file covers one job or team. Within it, use sections to organize by feature
 **There is no required structure.** The only goal is to get your thoughts out of your head. The more detail the better — metrics, context, what was hard, what you're proud of. The LLM will extract what matters.
 
 See `career/tech-company-inc.md` for a full example.
+
+## Education Journal Format
+
+The `education/` directory works the same way as `career/` — add as many `.md` files as you like and all of them will be included automatically. There's no required structure or naming convention.
+
+Some ways to organise it:
+- **One file per degree** — `bs-computer-science.md`, `ms-data-science.md`
+- **One file for certifications** — `professional-certifications.md`
+- **One file for everything** — `education.md` (the existing default)
+- **Mix and match** — whatever makes it easiest for you to keep up to date
+
+Write in the same journal style as your career files. Cover what courses mattered and why, what projects you built, what you struggled with, activities, GPA if relevant. For certifications, include why you got them, how you studied, and what changed at work afterward.
+
+See `education/bs-computer-science.md` and `education/professional-certifications.md` for examples.
 
 ## Quick Start
 
@@ -62,7 +77,7 @@ bun install
 
 # 3. Fill in your information
 # - Add your career journal files to career/ (one file per job, e.g. stripe.md)
-# - Add your education to education/education.md
+# - Add your education files to education/ (one file per degree/cert, or whatever structure works for you)
 # - Review resume-types/ for available templates
 
 # 4. Generate your first resume
@@ -123,8 +138,10 @@ career-context-builder/
 │   └── ...
 ├── promo/                   # Promotion criteria documents, one per level/company
 │   └── staff-engineer.md    # Example: Senior → Staff Engineer criteria
-├── education/               # Education history
-│   └── education.md
+├── education/               # Education journal files (one per degree/cert, or however you like)
+│   ├── education.md         # Default structured education summary
+│   ├── bs-computer-science.md
+│   └── ...
 ├── support/                 # Interview prep resources
 │   └── behavior.md          # Behavioral questions list for cheat-sheet generation
 ├── job-descriptions/        # Optional job descriptions for tailoring

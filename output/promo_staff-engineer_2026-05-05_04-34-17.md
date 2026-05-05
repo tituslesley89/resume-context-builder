@@ -1,0 +1,28 @@
+# Promotion Case: Senior Software Engineer to Staff Engineer
+
+## 1. Summary
+Over the past 18 months, the candidate has evolved from a high-performing individual contributor into a technical leader who drives cross-team architectural strategy and organizational health. By leading the nine-month migration from a monolithic architecture to microservices, they delivered a 40% improvement in API performance and established a durable technical foundation for the company’s 500K+ active users. The candidate is a force multiplier who has institutionalized rigorous engineering standards, resulting in a 35% reduction in production bugs and the successful development of five engineers in distributed systems design.
+
+## 2. Project Highlights
+
+**Monolith to Microservices Migration**
+The candidate led a team of five engineers through a nine-month initiative to decompose the core monolith, which had become a bottleneck for both performance and deployment frequency. They navigated significant ambiguity by mapping undocumented dependencies and selecting a Strangler Fig pattern to ensure a safe, incremental transition rather than a high-risk "big bang" rewrite. Under the candidate's leadership, the team achieved 99.9% uptime (up from 99.5%), reduced deployment times from two hours to 15 minutes, and lowered infrastructure costs by 25% through service rightsizing. The candidate also used this migration as a training ground, pairing with junior engineers to ensure the entire team reached proficiency in distributed systems patterns.
+
+**Real-time Notifications Engine**
+Tasked with building a notification system for over 500,000 active users, the candidate owned the end-to-end technical strategy and implementation. They conducted a deep-dive spike comparing WebSockets, SSE, and polling, ultimately designing a WebSocket-based architecture capable of handling massive connection spikes. When early simulations revealed vulnerabilities to reconnect storms and memory leaks, the candidate redesigned the connection management layer with a robust backoff strategy and connection pooling. The system launched on schedule and has maintained stability under full production load without a single major incident.
+
+**Authentication & User Management Overhaul**
+The candidate took ownership of a critical but fragile legacy auth system to implement Google and GitHub OAuth integrations. Upon discovering a lack of documentation and a "tangle" of manual token logic, they paused to map the existing state before designing a new OAuth flow that integrated seamlessly with legacy session handling. Beyond the technical implementation, the candidate prioritized user-facing error handling, which directly led to a 60% reduction in auth-related support tickets within the first month. This project established the candidate as the organization's de facto authority on identity and access management.
+
+## 3. Leadership & Mentorship
+The candidate’s leadership is defined by their ability to build alignment and technical competence across the organization. During the microservices migration, they successfully navigated internal friction between stakeholders favoring speed and those favoring safety, ultimately winning consensus for an incremental approach. They have been instrumental in the professional growth of five engineers, providing targeted design feedback and pairing sessions that moved the cohort from monolithic development to mastery of distributed systems. This follows a proven track record of mentorship, including their time at a previous fintech startup where they developed a onboarding curriculum and setup scripts that reduced "time-to-first-commit" for new hires from one full day to under 30 minutes.
+
+## 4. Engineering Excellence
+The candidate has demonstrably raised the technical bar by moving the team from a culture of "it works on my machine" to one of rigorous validation. They drafted and implemented a lightweight code review standard that defined expectations for test coverage and feedback quality, which contributed to a 35% decrease in production bugs in a single quarter. The candidate’s commitment to "leaving code better than they found it" is evidenced by their work on the CI/CD pipeline, which they rebuilt to be more resilient, and their systematic elimination of N+1 query patterns that improved page load times by 30%. Under their guidance, test coverage for the new microservices architecture reached and has maintained a 95% threshold.
+
+## 5. Organizational Contributions
+Beyond project-specific delivery, the candidate has invested heavily in the long-term health of the engineering organization. They independently identified and solved a major bottleneck in the developer experience by creating a Docker-based local setup and a single-command setup script, which scaled to support all new engineering hires. To support non-technical stakeholders, the candidate built an internal transaction replay tool that allowed the support team to simulate payment failures without engineering intervention, significantly reducing cross-departmental friction. Additionally, the candidate’s contributions to PCI Level 2 certification and their creation of high-quality internal documentation have ensured that technical knowledge remains accessible and durable as the team scales.
+
+## 6. Peer Quotes (Placeholder)
+*   *"[Peer Name] can provide testimony regarding the candidate's ability to drive alignment during the microservices architecture reviews.]"*
+*   *"[Junior Engineer Name] can speak to how the candidate's mentorship and pairing sessions during the 2024 migration accelerated their growth as a distributed systems engineer.]"*

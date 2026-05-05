@@ -21,9 +21,17 @@ function readCareerFiles(): string {
   return files.map((f) => `#### career/${f}\n${readFile(`career/${f}`)}`).join('\n\n');
 }
 
+function readEducationFiles(): string {
+  if (!existsSync('education')) return '';
+  const files = readdirSync('education')
+    .filter((f) => f.endsWith('.md'))
+    .sort();
+  return files.map((f) => `#### education/${f}\n${readFile(`education/${f}`)}`).join('\n\n');
+}
+
 function buildPrompt(): string {
   const careerContent = readCareerFiles();
-  const educationContent = readFile('education/education.md');
+  const educationContent = readEducationFiles();
   const questionsContent = readFile('support/behavior.md');
 
   return `You are helping a candidate prepare for behavioral interviews. Using their career journal, generate a concise cheat-sheet they can review before an interview.
